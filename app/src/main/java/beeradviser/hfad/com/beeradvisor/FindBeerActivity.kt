@@ -1,6 +1,7 @@
 package beeradviser.hfad.com.beeradvisor
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -14,9 +15,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.activity_find_beer.view.*
+import java.util.*
 
 
 class FindBeerActivity : Activity() {
+
 
     private val TAG = "SignInActivity"
     private val RC_SIGN_IN = 9001
@@ -26,6 +29,7 @@ class FindBeerActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_find_beer)
+        getId()
 
         // Setup Google login
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -128,6 +132,22 @@ class FindBeerActivity : Activity() {
 
     }
 
+    fun getId() {
+        if (uniqueID == null) {
+            val sharedPrefs = this.baseContext.getSharedPreferences(
+                    PREF_UNIQUE_ID, Context.MODE_PRIVATE)
+            uniqueID = sharedPrefs.getString(PREF_UNIQUE_ID, null)
+
+            if (uniqueID == null) {
+                uniqueID = UUID.randomUUID().toString()
+                val editor = sharedPrefs.edit()
+                editor.putString(PREF_UNIQUE_ID, uniqueID)
+                editor.commit()
+            }
+        }
+        findViewById<View>(R.id.uuid).uuid.text = uniqueID
+    }
+
 
 
     /**
@@ -137,9 +157,14 @@ class FindBeerActivity : Activity() {
 
     companion object {
 
+        private var uniqueID: String? = null
+        private val PREF_UNIQUE_ID = "PREF_UNIQUE_ID"
+
         // Used to load the 'native-lib' library on application startup.
         init {
             System.loadLibrary("native-lib")
         }
+
+
     }
 }

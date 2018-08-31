@@ -4,29 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".FindBeerActivity">
 
     <TextView
         android:id="@+id/brands"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/brands"
         android:layout_gravity="center"
         android:layout_margin="16dp"
+        android:text="@string/brands"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    
+
     <Spinner
         android:id="@+id/color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:layout_gravity="center"
         android:layout_margin="16dp"
+        android:layout_marginTop="40dp"
         android:entries="@array/beer_colors">
 
     </Spinner>
@@ -37,22 +37,22 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="16dp"
-        android:text="@string/find_beer"
-        android:onClick="onClickFindBeer"/>
+        android:onClick="onClickFindBeer"
+        android:text="@string/find_beer" />
 
     <Button
         android:id="@+id/sign_in_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Log in with Google"
-        android:onClick="onClickSignInToGoogle"/>
+        android:onClick="onClickSignInToGoogle"
+        android:text="Log in with Google" />
 
     <Button
         android:id="@+id/sign_out_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign out from Google"
-        android:onClick="onClickSignOutOfGoogle"/>
+        android:onClick="onClickSignOutOfGoogle"
+        android:text="Sign out from Google" />
 
     <TextView
         android:id="@+id/status"
@@ -70,6 +70,12 @@
 
     <TextView
         android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/uuid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="" />
