@@ -13,6 +13,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import kotlinx.android.synthetic.main.activity_find_beer.view.*
 
 
 class FindBeerActivity : Activity() {
@@ -21,15 +22,10 @@ class FindBeerActivity : Activity() {
     private val RC_SIGN_IN = 9001
 
     private var mGoogleSignInClient: GoogleSignInClient? = null
-    private var mStatusTextView: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_find_beer)
-
-        // Views
-        mStatusTextView = findViewById(R.id.status)
-
 
         // Setup Google login
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -102,43 +98,42 @@ class FindBeerActivity : Activity() {
 
     // [START signIn]
     private fun signIn() {
-        val signInIntent = mGoogleSignInClient!!.getSignInIntent()
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        mGoogleSignInClient?.let {
+            startActivityForResult(it.signInIntent, RC_SIGN_IN)
+        }
     }
     // [END signIn]
 
     // [START signOut]
     private fun signOut() {
-        mGoogleSignInClient!!.signOut()
-                .addOnCompleteListener(this) {
-                    // [START_EXCLUDE]
-                    updateUI(null)
-                    // [END_EXCLUDE]
-                }
+        mGoogleSignInClient?.let {
+            it.signOut() .addOnCompleteListener(this) {
+                updateUI(null)
+            }
+        }
     }
     // [END signOut]
 
     private fun updateUI(account: GoogleSignInAccount?) {
 
-        if (account != null) {
-            mStatusTextView!!.text = getString(R.string.signed_in_fmt, account.displayName)
+        account?.let {
+            findViewById<View>(R.id.status).status.text = getString(R.string.signed_in_fmt, it.displayName)
 
             findViewById<View>(R.id.sign_in_button).visibility = View.GONE
             findViewById<View>(R.id.sign_out_button).visibility = View.VISIBLE
-        } else {
-//            mStatusTextView.setText(R.string.signed_out)
-
+        } ?: run {
             findViewById<View>(R.id.sign_in_button).visibility = View.VISIBLE
             findViewById<View>(R.id.sign_out_button).visibility = View.GONE
         }
+
     }
+
 
 
     /**
      * A native method that is implemented by the 'native-lib' native library,
      * which is packaged with this application.
      */
-    external fun stringFromJNI(): String
 
     companion object {
 
