@@ -1,0 +1,14 @@
+<resources>
+    <string name="server_client_id">556025797364-lbn46v309pfifior6c3kuv2imb537it0.apps.googleusercontent.com</string>
+    <string name="app_name">Beer Advisor</string>
+    <string name="find_beer">Find Beer!</string>
+    <string name="brands">No beers selected</string>
+    <string-array name="beer_colors">
+        <item>light</item>
+        <item>amber</item>
+        <item>brown</item>
+        <item>dark</item>
+    </string-array>
+    <string name="signed_out">Signed Out Advisor</string>
+    <string name="signed_in_fmt">Signed in as: %s</string>
+</resources>
